@@ -1,0 +1,447 @@
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="utf-8">
+    <title>Nate's Movie Picks</title>
+
+    <!-- Bootstrap 3 -->
+    <link rel="stylesheet" href="https://netdna.bootstrapcdn.com/bootstrap/3.1.0/css/bootstrap.min.css">
+    <link rel="stylesheet" href="https://netdna.bootstrapcdn.com/bootstrap/3.1.0/css/bootstrap-theme.min.css">
+    <link href="https://fonts.googleapis.com/css?family=Special+Elite" rel="stylesheet">
+    <script src="http://code.jquery.com/jquery-1.10.1.min.js"></script>
+    <script src="https://netdna.bootstrapcdn.com/bootstrap/3.1.0/js/bootstrap.min.js"></script>
+    <style type="text/css" media="screen">
+        body {
+            padding-top: 80px;
+        }
+        #trailer .modal-dialog {
+            margin-top: 200px;
+            width: 640px;
+            height: 480px;
+        }
+        .hanging-close {
+            position: absolute;
+            top: -12px;
+            right: -12px;
+            z-index: 9001;
+        }
+        #trailer-video {
+            width: 100%;
+            height: 100%;
+        }
+        .movie-tile {
+            margin: 50px;
+            perspective: 1000px;
+            height: 342px;
+            width: 220px; 
+        }
+        .movie-tile:hover {
+            cursor: pointer;
+        }
+        .scale-media {
+            padding-bottom: 56.25%;
+            position: relative;
+        }
+        .scale-media iframe {
+            border: none;
+            height: 100%;
+            position: absolute;
+            width: 100%;
+            left: 0;
+            top: 0;
+            background-color: white;
+        }
+        .container {
+            position: relative;
+        }
+        .card {
+            transition: 1s;
+            transform-style: preserve-3d;
+            height: 342px;
+            width: 220px;
+            background-color: #EEEEEE;
+            box-shadow: 0px 4px 4px #BBBBBB;
+        }
+        .movie-tile:hover .card {
+             transform: rotateY(180deg);
+             box-shadow: 0px 6px 5px #BBBBBB;
+         }
+         .face {
+             position: absolute;
+             width: 100%;
+             height: 100%;
+             backface-visibility: hidden;
+             display: block;
+         }
+        .face.back {
+            display: block;
+            transform: rotateY(180deg);
+        }
+        .rating_square {
+            border: 1px solid #666666;
+            padding: 2px 2px 2px 3px;
+            font-weight: bold;
+        }
+        .first_line {
+            display: inline;
+            margin-bottom: 20px;
+        }
+        .first_line_container {
+            width: 100%;
+            margin: 10% 0 10% 0;
+        }
+        .movie_name {
+            margin-top: 16px;
+            font-weight: bold;
+        }
+        .release_date {
+            margin: -6px; 
+        }
+        .tagline_text {
+            font-size: 16px;
+            margin: 20% 8px 20% 8px;
+        }
+        #top-bar {
+            background-color: black;
+            background-image: none;
+            height: 64px;
+            border: none;
+            padding: 8px 0 16px 0;
+            box-shadow: 0px 4px 15px hsla(0, 0%, 10%, .5);
+        }
+        .navbar-inverse .navbar-brand {
+            font-family: 'Special Elite', courier;
+            font-size: 46px;
+            color: #D50000;
+            font-weight: normal;
+        }
+
+        .navbar-inverse:hover .navbar-brand {
+            color: #EF5350;
+        }
+        .top-part {
+            height: 83%;
+        }
+    </style>
+    <script type="text/javascript" charset="utf-8">
+        // Pause the video when the modal is closed
+        $(document).on('click', '.hanging-close, .modal-backdrop, .modal', function (event) {
+            // Remove the src so the player itself gets removed, as this is the only
+            // reliable way to ensure the video stops playing in IE
+            $("#trailer-video-container").empty();
+        });
+        // Start playing the video whenever the trailer modal is opened
+        $(document).on('click', '.face', function (event) {
+            var trailerYouTubeId = $(this).attr('data-trailer-youtube-id')
+            var sourceUrl = 'http://www.youtube.com/embed/' + trailerYouTubeId + '?autoplay=1&html5=1';
+            $("#trailer-video-container").empty().append($("<iframe></iframe>", {
+              'id': 'trailer-video',
+              'type': 'text-html',
+              'src': sourceUrl,
+              'frameborder': 0
+            }));
+        });
+        // Animate in the movies when the page loads
+        $(document).ready(function () {
+          $('.movie-tile').hide().first().show("fast", function showNext() {
+            $(this).next("div").show("fast", showNext);
+          });
+        });
+    </script>
+</head>
+
+  <body>
+    <!-- Trailer Video Modal -->
+    <div class="modal" id="trailer">
+      <div class="modal-dialog">
+        <div class="modal-content">
+          <a href="#" class="hanging-close" data-dismiss="modal" aria-hidden="true">
+            <img src="https://lh5.ggpht.com/v4-628SilF0HtHuHdu5EzxD7WRqOrrTIDi_MhEG6_qkNtUK5Wg7KPkofp_VJoF7RS2LhxwEFCO1ICHZlc-o_=s0#w=24&h=24"/>
+          </a>
+          <div class="scale-media" id="trailer-video-container">
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- Main Page Content -->
+    <div class="container">
+      <div id="top-bar" class="navbar navbar-inverse navbar-fixed-top" role="navigation">
+        <div class="container">
+          <div class="navbar-header">
+            <a class="navbar-brand" href="#">Nate's Movie Picks</a>
+          </div>
+        </div>
+      </div>
+    </div>
+    <div class="container">
+      
+<div class="col-md-6 col-lg-4 movie-tile text-center" data-trailer-youtube-id="OtDQOF_pU8A" data-toggle="modal" data-target="#trailer">
+    <div class="card">
+        <!-- Front of "flipping" card -->
+        <div class="front face">
+            <img src="https://upload.wikimedia.org/wikipedia/en/4/46/8Mezzo.jpg" width="220" height="342">
+        </div>
+        <!-- Back of "flipping" card -->
+        <div class="back face" data-trailer-youtube-id="OtDQOF_pU8A" data-toggle="modal" data-target="#trailer">
+            <div class="top-part">
+                <h4 class="movie_name">8&frac12;</h4>
+                <h5 class="release_date">(1963)</h5>
+                <div class="first_line_container">
+                    <h6 class="rating_square first_line">NR</h6>
+                    <h6 class="first_line">&emsp;|&emsp;Fantasy&emsp;|&emsp;138min</h6>
+                </div>
+                <p class="tagline_text"><em>A picture that goes beyond what men think about - because no man ever thought about it in quite this way!</em></p>
+            </div>
+            <p>Directed by Fredorico Fellini</p>
+        </div>
+    </div>
+</div>
+
+<div class="col-md-6 col-lg-4 movie-tile text-center" data-trailer-youtube-id="zMFZOu8rDUQ" data-toggle="modal" data-target="#trailer">
+    <div class="card">
+        <!-- Front of "flipping" card -->
+        <div class="front face">
+            <img src="https://upload.wikimedia.org/wikipedia/en/a/aa/Americanmovie.jpg" width="220" height="342">
+        </div>
+        <!-- Back of "flipping" card -->
+        <div class="back face" data-trailer-youtube-id="zMFZOu8rDUQ" data-toggle="modal" data-target="#trailer">
+            <div class="top-part">
+                <h4 class="movie_name">American Movie</h4>
+                <h5 class="release_date">(1999)</h5>
+                <div class="first_line_container">
+                    <h6 class="rating_square first_line">R</h6>
+                    <h6 class="first_line">&emsp;|&emsp;Documentary&emsp;|&emsp;107min</h6>
+                </div>
+                <p class="tagline_text"><em></em></p>
+            </div>
+            <p>Directed by Chris Smith</p>
+        </div>
+    </div>
+</div>
+
+<div class="col-md-6 col-lg-4 movie-tile text-center" data-trailer-youtube-id="TM0lC2QCiSU" data-toggle="modal" data-target="#trailer">
+    <div class="card">
+        <!-- Front of "flipping" card -->
+        <div class="front face">
+            <img src="https://upload.wikimedia.org/wikipedia/en/5/5d/Band_a_Part_French_poster.jpg" width="220" height="342">
+        </div>
+        <!-- Back of "flipping" card -->
+        <div class="back face" data-trailer-youtube-id="TM0lC2QCiSU" data-toggle="modal" data-target="#trailer">
+            <div class="top-part">
+                <h4 class="movie_name">Band of Outsiders</h4>
+                <h5 class="release_date">(1964)</h5>
+                <div class="first_line_container">
+                    <h6 class="rating_square first_line">NR</h6>
+                    <h6 class="first_line">&emsp;|&emsp;New Wave&emsp;|&emsp;97min</h6>
+                </div>
+                <p class="tagline_text"><em></em></p>
+            </div>
+            <p>Directed by Jean-Luc Godard</p>
+        </div>
+    </div>
+</div>
+
+<div class="col-md-6 col-lg-4 movie-tile text-center" data-trailer-youtube-id="WoG8V7ydPsE" data-toggle="modal" data-target="#trailer">
+    <div class="card">
+        <!-- Front of "flipping" card -->
+        <div class="front face">
+            <img src="https://upload.wikimedia.org/wikipedia/commons/thumb/1/18/Eraserhead.jpg/800px-Eraserhead.jpg" width="220" height="342">
+        </div>
+        <!-- Back of "flipping" card -->
+        <div class="back face" data-trailer-youtube-id="WoG8V7ydPsE" data-toggle="modal" data-target="#trailer">
+            <div class="top-part">
+                <h4 class="movie_name">Eraserhead</h4>
+                <h5 class="release_date">(1977)</h5>
+                <div class="first_line_container">
+                    <h6 class="rating_square first_line">UR</h6>
+                    <h6 class="first_line">&emsp;|&emsp;Drama&emsp;|&emsp;109min</h6>
+                </div>
+                <p class="tagline_text"><em>In Heaven Everything Is Fine.</em></p>
+            </div>
+            <p>Directed by David Lynch</p>
+        </div>
+    </div>
+</div>
+
+<div class="col-md-6 col-lg-4 movie-tile text-center" data-trailer-youtube-id="8-LDW7tWwAI" data-toggle="modal" data-target="#trailer">
+    <div class="card">
+        <!-- Front of "flipping" card -->
+        <div class="front face">
+            <img src="https://upload.wikimedia.org/wikipedia/en/4/4b/EscapefromNYposter.jpg" width="220" height="342">
+        </div>
+        <!-- Back of "flipping" card -->
+        <div class="back face" data-trailer-youtube-id="8-LDW7tWwAI" data-toggle="modal" data-target="#trailer">
+            <div class="top-part">
+                <h4 class="movie_name">Escape from New York</h4>
+                <h5 class="release_date">(1981)</h5>
+                <div class="first_line_container">
+                    <h6 class="rating_square first_line">R</h6>
+                    <h6 class="first_line">&emsp;|&emsp;Action&emsp;|&emsp;99min</h6>
+                </div>
+                <p class="tagline_text"><em>1997. New York City is a walled maximum security prison. Breaking out is impossible. Breaking in is insane.</em></p>
+            </div>
+            <p>Directed by John Carpenter</p>
+        </div>
+    </div>
+</div>
+
+<div class="col-md-6 col-lg-4 movie-tile text-center" data-trailer-youtube-id="NCGGG_NvE4g'" data-toggle="modal" data-target="#trailer">
+    <div class="card">
+        <!-- Front of "flipping" card -->
+        <div class="front face">
+            <img src="https://upload.wikimedia.org/wikipedia/en/6/6e/Reanimator_poster.png" width="220" height="342">
+        </div>
+        <!-- Back of "flipping" card -->
+        <div class="back face" data-trailer-youtube-id="NCGGG_NvE4g'" data-toggle="modal" data-target="#trailer">
+            <div class="top-part">
+                <h4 class="movie_name">Re-Animator</h4>
+                <h5 class="release_date">(1985)</h5>
+                <div class="first_line_container">
+                    <h6 class="rating_square first_line">R</h6>
+                    <h6 class="first_line">&emsp;|&emsp;Horror&emsp;|&emsp;104min</h6>
+                </div>
+                <p class="tagline_text"><em>Herbert West has a good head on his shoulders...and another one on his desk. H.P. Lovecraft's classic tale of horror...Re-Animator...It will scare you to pieces.</em></p>
+            </div>
+            <p>Directed by Stuart Gordon</p>
+        </div>
+    </div>
+</div>
+
+<div class="col-md-6 col-lg-4 movie-tile text-center" data-trailer-youtube-id="DLGrXGEMOSo" data-toggle="modal" data-target="#trailer">
+    <div class="card">
+        <!-- Front of "flipping" card -->
+        <div class="front face">
+            <img src="https://upload.wikimedia.org/wikipedia/en/4/46/Repo-Man-Poster.jpg" width="220" height="342">
+        </div>
+        <!-- Back of "flipping" card -->
+        <div class="back face" data-trailer-youtube-id="DLGrXGEMOSo" data-toggle="modal" data-target="#trailer">
+            <div class="top-part">
+                <h4 class="movie_name">Repo Man</h4>
+                <h5 class="release_date">(1984)</h5>
+                <div class="first_line_container">
+                    <h6 class="rating_square first_line">R</h6>
+                    <h6 class="first_line">&emsp;|&emsp;Punk&emsp;|&emsp;95min</h6>
+                </div>
+                <p class="tagline_text"><em>It's 4 A.M., do you know where your car is?</em></p>
+            </div>
+            <p>Directed by Alex Cox</p>
+        </div>
+    </div>
+</div>
+
+<div class="col-md-6 col-lg-4 movie-tile text-center" data-trailer-youtube-id="oByMeAfwARs" data-toggle="modal" data-target="#trailer">
+    <div class="card">
+        <!-- Front of "flipping" card -->
+        <div class="front face">
+            <img src="https://upload.wikimedia.org/wikipedia/en/6/67/Road-house-poster.jpg" width="220" height="342">
+        </div>
+        <!-- Back of "flipping" card -->
+        <div class="back face" data-trailer-youtube-id="oByMeAfwARs" data-toggle="modal" data-target="#trailer">
+            <div class="top-part">
+                <h4 class="movie_name">Road House</h4>
+                <h5 class="release_date">(1989)</h5>
+                <div class="first_line_container">
+                    <h6 class="rating_square first_line">R</h6>
+                    <h6 class="first_line">&emsp;|&emsp;80s&emsp;|&emsp;114min</h6>
+                </div>
+                <p class="tagline_text"><em>Dalton lives like a loner, fights like a professional. And loves like there's no tomorrow.</em></p>
+            </div>
+            <p>Directed by Rowdy Herrington</p>
+        </div>
+    </div>
+</div>
+
+<div class="col-md-6 col-lg-4 movie-tile text-center" data-trailer-youtube-id="M-kISlD2rdw" data-toggle="modal" data-target="#trailer">
+    <div class="card">
+        <!-- Front of "flipping" card -->
+        <div class="front face">
+            <img src="https://upload.wikimedia.org/wikipedia/en/2/2d/Sweet_lowdown_moviep.jpg" width="220" height="342">
+        </div>
+        <!-- Back of "flipping" card -->
+        <div class="back face" data-trailer-youtube-id="M-kISlD2rdw" data-toggle="modal" data-target="#trailer">
+            <div class="top-part">
+                <h4 class="movie_name">Sweet and Lowdown</h4>
+                <h5 class="release_date">(1999)</h5>
+                <div class="first_line_container">
+                    <h6 class="rating_square first_line">PG-13</h6>
+                    <h6 class="first_line">&emsp;|&emsp;Comedy&emsp;|&emsp;95min</h6>
+                </div>
+                <p class="tagline_text"><em></em></p>
+            </div>
+            <p>Directed by Woody Allen</p>
+        </div>
+    </div>
+</div>
+
+<div class="col-md-6 col-lg-4 movie-tile text-center" data-trailer-youtube-id="WFMLGEHdIjE" data-toggle="modal" data-target="#trailer">
+    <div class="card">
+        <!-- Front of "flipping" card -->
+        <div class="front face">
+            <img src="https://upload.wikimedia.org/wikipedia/en/f/f9/Total_recall.jpg" width="220" height="342">
+        </div>
+        <!-- Back of "flipping" card -->
+        <div class="back face" data-trailer-youtube-id="WFMLGEHdIjE" data-toggle="modal" data-target="#trailer">
+            <div class="top-part">
+                <h4 class="movie_name">Total Recall</h4>
+                <h5 class="release_date">(1990)</h5>
+                <div class="first_line_container">
+                    <h6 class="rating_square first_line">R</h6>
+                    <h6 class="first_line">&emsp;|&emsp;Action&emsp;|&emsp;113
+min</h6>
+                </div>
+                <p class="tagline_text"><em>They stole his mind, now he wants it back.</em></p>
+            </div>
+            <p>Directed by Paul Verhoeven</p>
+        </div>
+    </div>
+</div>
+
+<div class="col-md-6 col-lg-4 movie-tile text-center" data-trailer-youtube-id="V-Oqn2hMp1M" data-toggle="modal" data-target="#trailer">
+    <div class="card">
+        <!-- Front of "flipping" card -->
+        <div class="front face">
+            <img src="https://upload.wikimedia.org/wikipedia/en/f/f7/Touch_of_Evil_film_poster.jpg" width="220" height="342">
+        </div>
+        <!-- Back of "flipping" card -->
+        <div class="back face" data-trailer-youtube-id="V-Oqn2hMp1M" data-toggle="modal" data-target="#trailer">
+            <div class="top-part">
+                <h4 class="movie_name">Touch of Evil</h4>
+                <h5 class="release_date">(1958)</h5>
+                <div class="first_line_container">
+                    <h6 class="rating_square first_line">PG-13</h6>
+                    <h6 class="first_line">&emsp;|&emsp;Noir&emsp;|&emsp;95min</h6>
+                </div>
+                <p class="tagline_text"><em>The strangest vengeance ever planned!</em></p>
+            </div>
+            <p>Directed by Orson Welles</p>
+        </div>
+    </div>
+</div>
+
+<div class="col-md-6 col-lg-4 movie-tile text-center" data-trailer-youtube-id="H9NQz2GXGTg" data-toggle="modal" data-target="#trailer">
+    <div class="card">
+        <!-- Front of "flipping" card -->
+        <div class="front face">
+            <img src="https://upload.wikimedia.org/wikipedia/en/4/4e/Unforgiven_2.jpg" width="220" height="342">
+        </div>
+        <!-- Back of "flipping" card -->
+        <div class="back face" data-trailer-youtube-id="H9NQz2GXGTg" data-toggle="modal" data-target="#trailer">
+            <div class="top-part">
+                <h4 class="movie_name">Unforgiven</h4>
+                <h5 class="release_date">(1992)</h5>
+                <div class="first_line_container">
+                    <h6 class="rating_square first_line">R</h6>
+                    <h6 class="first_line">&emsp;|&emsp;Western&emsp;|&emsp;141min</h6>
+                </div>
+                <p class="tagline_text"><em>It's a hell of a thing, killing a man</em></p>
+            </div>
+            <p>Directed by Clint Eastwood</p>
+        </div>
+    </div>
+</div>
+
+    </div>
+  </body>
+</html>
